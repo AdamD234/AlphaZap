@@ -15,7 +15,7 @@
     <div class="intro popup focus">
       <div class="top"> 
         <h2>AlphaZap</h2>
-        <span class="close" onclick="closePopup(this)"><img src="Close.svg"/></span>
+        <button class="close" onclick="closePopup(this)"><img src="Close.svg"/></button>
       </div>
       <div class="content">
         <h3>The rules:</h3>
@@ -39,62 +39,63 @@
     </div>
 
     <div class="popup win hide">
-      <span class="close" onclick="closePopup()"><img src="Close.svg"/></span>
+      <button class="close" onclick="closePopup()"><img src="Close.svg"/></button>
       <h2>Well done!</h2>
       <p>You won using 1 word!</p>
     </div>
 
     <div class="popup focus choose hide">
-      <span class="close" onclick="closePopup(this, true)"><img src="Close.svg"/></span>
+      <button class="close" onclick="closePopup(this, true)"><img src="Close.svg"/></button>
       <h2>Write your own word:</h2>
       <div class="type-area">
         <input type="text" id="choose-word">
       </div>
       <p id="letters-only">Needs to be only letters!</p>
-      <span class="use lower-opacity" onclick="closePopup(this, true, true, true)">Use word</span>
-      <span onclick="closePopup(this, true, true)">Random word</span>
+      <button class="use lower-opacity" onclick="closePopup(this, true, true, true)">Use word</button>
+      <button onclick="closePopup(this, true, true, false)">Random word</button>
     </div>
 
-
-    <div class="left">
-      <div class="previous">
-      </div>
-      <div class="type-area">
-        <input type="text" id="input">
-        <div class="word-check">
-          <img class="not" src="NotWord.svg"/>
-          <div id="reason" class="popup speech"><p>No word entered</p></div>
-          <img class="is" src="IsWord.svg"/>
+    <main>
+      <div class="left">
+        <div class="previous">
+        </div>
+        <div class="type-area">
+          <input type="text" id="input">
+          <div class="word-check">
+            <img class="not" src="NotWord.svg"/>
+            <div id="reason" class="popup speech"><p>No word entered</p></div>
+            <img class="is" src="IsWord.svg"/>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div class="right">
-      <div class="letters-left">
+  
+      <div class="right">
+        <div class="letters-left">
+        </div>
+        <div class="buttons">
+          <div class="undo">
+            <button onclick="undo()"><img src= "Undo.svg"/></button>
+            <p class="popup speech">Undo</p>
+          </div>
+          <div class="reset">
+            <button onclick="reset()"><img src= "Reset.svg"/></button>
+            <p class="popup speech">Restart</p>
+          </div>
+          <div class="randomize">
+            <button onclick="randomize(true)"><img src= "Random.svg"/></button>
+            <p class="popup speech">New word</p>
+          </div>
+          <div class="custom">
+            <button onclick="custom()"><img src= "Custom.svg"/></button>
+            <p class="popup speech">Choose new word</p>
+          </div>
+          <div class="alphabetize">
+            <p class="label">A - Z</p>
+            <button class="switch" onclick="alphabetize(this)"></button>
+            <p class="popup speech">Alphabetize<br>remaining<br>letters</p>
+          </div>
+        </div>
       </div>
-      <div class="buttons">
-        <div class="undo">
-          <span onclick="undo()"><img src= "Undo.svg"/></span>
-          <div class="popup speech"><p>Undo</p></div>
-        </div>
-        <div class="reset">
-          <span onclick="reset()"><img src= "Reset.svg"/></span>
-          <div class="popup speech"><p>Restart</p></div>
-        </div>
-        <div class="randomize">
-          <span onclick="randomize(true)"><img src= "Random.svg"/></span>
-          <div class="popup speech"><p>New word</p></div>
-        </div>
-        <div class="custom">
-          <span onclick="custom()"><img src= "Custom.svg"/></span>
-          <div class="popup speech"><p>Choose new word</p></div>
-        </div>
-        <div class="alphabetize">
-          <p>A - Z</p>
-          <span class="switch" onclick="alphabetize(this)"></span>
-          <div class="popup speech"><p>Alphabetize<br>remaining<br>letters</p></div>
-        </div>
-      </div>
-    </div>
+    </main>
   </body>
 </html>

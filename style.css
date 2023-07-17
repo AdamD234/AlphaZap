@@ -10,14 +10,18 @@ html {
 
 body {
   height: 100%;
-  padding: 2% 3%;
+  padding: 4vh 3vw;
   margin: 0;
   background: linear-gradient(#001853, #11023b) no-repeat;
+  overflow: hidden;
+}
+
+main {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
-  overflow: hidden;
+  height: 100%;
 }
 
 img {
@@ -40,7 +44,7 @@ img {
 .popup,
 .left,
 .cards,
-span {
+button {
   background: radial-gradient(#0002, #0004);
   box-shadow: inset 0 0 1em #0009;
   border: 1px solid #fff;
@@ -71,7 +75,6 @@ h2 {
 
 .close {
   width: 50px;
-  height: 50px;
   background: 0;
   border: none;
   box-shadow: none;
@@ -180,7 +183,7 @@ h3 {
   visibility: visible !important;
 }
 
-.choose span {
+.choose button {
   text-align: center;
   flex: 40% 10 0;
   padding: 1rem .25rem;
@@ -305,6 +308,7 @@ p {
 .right {
   flex: 50% 0 1;
   height: 100%;
+  justify-content: space-between;
 }
 
 .letters-left {
@@ -358,24 +362,39 @@ p {
 .buttons > div {
   position: relative;
   flex: 4rem 0 1;
+  height: max-content;
+}
+
+button {
+  cursor: pointer;
+  display: block;
+  padding: 0;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: .75em;
+  transition: scale 50ms ease-out;
+}
+
+button img {
+  margin-bottom: -4px;
 }
 
 .speech{
   opacity: 0;
-  top: -90%;
-  left: 0;
+  top: -100%;
+  left: calc(50% - var(--wordWidth) / 2);
   padding: .6rem;
   height: max-content;
   width: max-content;
   border-radius: .5rem;
   border: none;
+  
 }
 
 .speech::after{
   content: "";
   position: absolute;
   background: #000c;
-  opacity: inherit;
   width: 1rem;
   height: 1rem;
   top: calc(100% - .5rem);
@@ -390,47 +409,38 @@ p {
 }
 
 .undo .popup {
-  left: calc(50% - 29.72px)
+  --wordWidth: 57.437px;
 }
 
 .reset .popup {
-  left: calc(50% - 35.385px)
+  --wordWidth: 70.766px;
 }
 
 .randomize .popup {
-  left: calc(50% - 45.165px)
+  --wordWidth: 90.328px;
 }
 
 .custom .popup {
-  left: calc(50% - 73.635px)
+  --wordWidth: 147.266px;
 }
 
 .alphabetize .popup{
   text-align: center;
-  top: -140%;
-  left: calc(50% - 59.515px)
-}
-
-span {
-  cursor: pointer;
-  display: block;
-  font-size: 1rem;
-  border-radius: .75em;
-  transition: scale 50ms ease-out;
-}
-
-span img {
-  margin-bottom: -4px;
+  top: -155%;
+  --wordWidth: 119.031px;
 }
 
 .alphabetize {
-  place-self: end;
   margin-left: auto;
+  place-self: end;
 }
-.alphabetize p {
+
+.label {
+  white-space: nowrap;
   font-size: 1rem;
   margin-inline: 8.11px;
 }
+
 .switch {
   width: 50px;
   height: 26px;
@@ -457,7 +467,7 @@ span img {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  span:hover { 
+  button:hover { 
     scale: 1.1;  
   }
   
@@ -465,11 +475,11 @@ span img {
     scale: .9;
   }
   
-  .choose span:hover {
+  .choose button:hover {
     scale: 1.05;
   }
 
-  div span:hover + .popup, .word-check:hover .popup{
+  div button:hover + .popup, .word-check:hover .popup{
     opacity: 1;
     transition: opacity .2s 1s;
   }
@@ -481,10 +491,12 @@ span img {
   }
 }
 @media (orientation: portrait) {
-  body {
+  body{ 
+    padding: 8%;
+  }
+  main {
     flex-flow: column-reverse;
     gap: 0;
-    padding: 8%;
   }
   .intro{
     inset: 10vh 10vw;
@@ -506,8 +518,9 @@ span img {
   }
 
   .choose {
-    inset: 10vh 10vw;
-    border-radius: 2rem;
+    background: #000e;
+    inset: 15vh 10vw;
+    border-radius: 1.5rem;
     padding: 1rem;
   }
 
@@ -516,7 +529,7 @@ span img {
     font-size: min(7vw , 2rem);
   }
 
-  .choose span {
+  .choose button {
     flex: 100%;
     font-size: 1rem;
   }
@@ -594,20 +607,21 @@ span img {
     margin: 0;
   }
 
-  .alphabetize p {
+  .label {
     font-size: 1rem;
     margin: 0 calc(50% - 17px) 7px;
   }
   .left,
   .cards,
-  span {
+  button {
     border-width: 1px;
     background: #0001;
   }
 
-  span {
+  button {
     border-radius: .5rem;
   }
+  
   .switch {
     margin: 0 calc(50% - clamp(1rem, 5vw, 25px));
     width: clamp(2rem, 10vw, 50px);

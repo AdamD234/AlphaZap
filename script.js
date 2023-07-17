@@ -28,6 +28,7 @@ closePopup = (child, notFirst, changeWord, customWord) => {
       child.parentElement.parentElement.classList.add("fade");
       setTimeout(function () {
         child.parentElement.parentElement.classList.add("disappear");
+        child.parentElement.parentElement.classList.remove("fade");
       }, 1500);
       //if it's a mobile device increase check delay
       let details = navigator.userAgent;
@@ -40,7 +41,7 @@ closePopup = (child, notFirst, changeWord, customWord) => {
       //loads allowed words and starts game
       fetchWords();
     } else {
-      if (acceptCustom){
+      if ((acceptCustom || !customWord) && !chooseClosing){
         //hides popup
         child.parentElement.classList.add("fade");
         chooseClosing = true;
@@ -50,6 +51,7 @@ closePopup = (child, notFirst, changeWord, customWord) => {
           chooseClosing = false;
           chooseInput.value = "";
         }, 1500);
+        
         //changes word
         if (changeWord){
           firstWord = chooseInput.value.toUpperCase();
@@ -327,6 +329,9 @@ randomize = (fromPress, customWord) =>{
 //opens the choose word popup
 custom = () => {
   if (interact && !chooseClosing){
+    acceptCustom = false;
+    document.getElementById("letters-only").classList.remove("show")
+    document.querySelector(".use").classList.add("lower-opacity")
     //hides win popup
     win.classList.remove("open");
     win.classList.add("hide");
