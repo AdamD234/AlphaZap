@@ -213,10 +213,21 @@ h3 {
 
 .previous {
   display: flex;
-  flex-flow: row wrap;
-  place-content: end start;
+  flex-direction: column;
+  justify-content: end;
   max-height: calc(96vh - 129px);
   overflow: hidden;
+}
+
+.previous div {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+  margin-block: .5rem;
+}
+
+.previous p {
+  margin: 0;
 }
 
 .type-area {
@@ -537,6 +548,7 @@ button[role="switch"][aria-checked="true"]::before{
   }
 
   .left {
+    overflow: hidden;
     flex: 60% 0 1;
     width: 100%;
     flex-flow: column-reverse;
@@ -572,7 +584,8 @@ button[role="switch"][aria-checked="true"]::before{
   }
 
   .previous {
-    flex-flow: row wrap-reverse;
+    flex-direction: column-reverse;
+    justify-content: start;
   }
 
   p {
@@ -636,7 +649,7 @@ button[role="switch"][aria-checked="true"]::before{
     transform: translateX(calc(-1 * clamp(.5rem, 2.5vw, 12.5px)));
   }
 
-  .on::before{
+  button[role="switch"][aria-checked="true"]::before{
     transform: translateX(clamp(.5rem, 2.5vw, 12.5px));
   }
 }

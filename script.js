@@ -1,3 +1,4 @@
+//referenced elements
 let input = document.getElementById("input");
 let wordCheck = document.querySelector(".word-check");
 let previous = document.querySelector(".previous");
@@ -6,6 +7,7 @@ let win = document.querySelector(".win");
 let choose = document.querySelector(".choose");
 let chooseInput = document.getElementById("choose-word");
 
+//turns off input to start with
 input.disabled = true;
 
 //on close of intro
@@ -41,6 +43,7 @@ closePopup = (child, notFirst, changeWord, customWord) => {
       //loads allowed words and starts game
       fetchWords();
     } else {
+      //logic for the choose popup closing
       if ((acceptCustom || !customWord) && !chooseClosing){
         //hides popup
         child.parentElement.classList.add("fade");
@@ -99,6 +102,7 @@ async function fetchWords() {
 input.onkeydown = (e) => {
   if (interact){
     wordCheck.classList.remove("valid");
+    //if enter is pressed and it's valid, use the word
     if (e.keyCode == 13) {
       if (valid) {
         check = input.value.toUpperCase();
@@ -106,12 +110,14 @@ input.onkeydown = (e) => {
         logic();
       }
     } else {
-      //check the input is a word
       valid = false;
       setTimeout(function () {
         check = input.value.toUpperCase();
+        //check for input
         if (check.length > 0){
+          //check the input is a word
           if (words.includes(check.toLowerCase())){
+            //check input is unique
             if (!previousWords.includes(check)){
               valid = true;
               wordCheck.classList.add("valid")
@@ -131,7 +137,7 @@ input.onkeydown = (e) => {
   } else{
     setTimeout(function () {
       input.value = "";
-    }, 0);
+    }, delay);
   }
 };
 
@@ -144,6 +150,7 @@ logic = () => {
   let numOfLetters = 0;
   numOfWords++;
   let pastLetters = JSON.parse(JSON.stringify(currentLetters));
+  let newWordHTML = "<div>"
 
   //creates the new elements
   for (let i = 0; i < check.length; i++) {
@@ -152,10 +159,8 @@ logic = () => {
       currentWord.push(check[i]);
       let letter = { letter: check[i], pos: wordLetter + i };
       currentLetters.push(letter);
-      previous.insertAdjacentHTML(
-        "beforeend",
-        "<p id='" + wordLetter + i + "'>" + check[i] + "</p>"
-      );
+      newWordHTML = newWordHTML + "<p id='" + wordLetter + i + "'>" + check[i] + "</p>";
+      
       //if its not alphabetized it just adds the most recent letters to the end
       if (!alphaOrder){
         letters.insertAdjacentHTML(
@@ -170,7 +175,9 @@ logic = () => {
       }
     }
   }
-  previous.insertAdjacentHTML("beforeend", "<p class='br'></p>");
+  //adds the previous word
+  newWordHTML = newWordHTML + "</div>";
+  previous.insertAdjacentHTML("beforeend", newWordHTML);
 
   
   //sorts the cards by alphabet
@@ -206,6 +213,7 @@ logic = () => {
   reason = 0;
   changeReason();
   
+  //win condition
   if (currentLetters.length == 0){
     interact = false;
     input.disabled = true;
@@ -220,6 +228,7 @@ logic = () => {
   }
 };
 
+//gradually fade win pop up
 winPopupFade = (finished) =>{
   win.classList.add("open");
   setTimeout(function () {
@@ -279,12 +288,12 @@ reset = (fromRandom) => {
   }
 };
 
-
 //undoes turns
 undo = () => {
    buttonPress();
    if (interact){
     if (numOfWords > 1) {
+      //variables back one and load previous
       numberOfUndos ++;
       numOfWords--;
       previousWords.pop();
@@ -292,6 +301,8 @@ undo = () => {
       let gone = undoArray[undoArray.length - 1][0];
       let numOfLettersLastWord = undoArray[undoArray.length - 1][1];
       currentLetters = undoArray[undoArray.length - 1][2];
+
+      //removes graphical classes
       for (let i = 0; i < gone.length; i++) {
         let id = gone[i];
         let left = document.getElementById(id);
@@ -301,12 +312,12 @@ undo = () => {
         right.firstElementChild.classList.remove("disappear");
         right.classList.remove("disappear");
       }
+
+      //removes HTML
       previous.lastElementChild.remove();
       for (let i = 0; i < numOfLettersLastWord; i++) {
-        let id = wordLetter + i;
-        let left = document.getElementById(id);
-        let right = document.getElementById("r" + id);
-        left.remove();
+        let id =  "r" + wordLetter + i;
+        let right = document.getElementById(id);
         right.remove();
       }
     }
@@ -347,7 +358,7 @@ custom = () => {
 chooseInput.onkeydown = (e) => {
   setTimeout(function () {
     let possibleCustom = chooseInput.value.toUpperCase();
-    //checks its acceptable
+    //checks it's acceptable
     if (possibleCustom.length > 0 && !/[^A-Z]/.test(possibleCustom)){
       acceptCustom = true;
     } else{
@@ -358,7 +369,7 @@ chooseInput.onkeydown = (e) => {
       closePopup(chooseInput.parentElement, true, true, true);
     }
 
-    //graphics
+    //graphics if the word isn't valid
     if (acceptCustom){
         document.getElementById("letters-only").classList.remove("show")
         document.querySelector(".use").setAttribute('aria-disabled', false);
@@ -425,7 +436,7 @@ orderedInsert = () =>{
   }
 }
 
-//changes the reason for check
+//changes the reason for valid check
 changeReason = () => {
   let reasons = [{"words":"No word entered",
                   "width":"137.474px"},
