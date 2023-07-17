@@ -1,0 +1,1 @@
+First version of the game my friend came up with. You get a word, then you add words to it, whenever there's two of the same letter they disappear. You're trying to get rid of every letter.
