@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="POG.ico"/>
+    <link rel="shortcut icon" href="POG.ico">
     <title>AlphaZap</title>
 </head>
   <body>
-    <p class="version">V1.11</p>
+    <p class="version">V1.13</p>
 
-    <div class="intro popup focus">
+    <div role="dialog" aria-labelledby="dialog1_label" aria-modal="true" class="intro popup">
       <div class="top"> 
-        <h2>AlphaZap</h2>
-        <button class="close" onclick="closePopup(this)"><img src="Close.svg"/></button>
+        <h2 id="dialog1_label">AlphaZap</h2>
+        <button type="button" class="close" onclick="closePopup(this)"><img src="Close.svg" alt="Close button"></button>
       </div>
       <div class="content">
         <h3>The rules:</h3>
@@ -38,21 +38,21 @@
       
     </div>
 
-    <div class="popup win hide">
-      <button class="close" onclick="closePopup()"><img src="Close.svg"/></button>
+    <div class="popup win hide" role="alert">
+      <button type="button" class="close" onclick="closePopup()"><img src="Close.svg" alt="Close button"></button>
       <h2>Well done!</h2>
       <p>You won using 1 word!</p>
     </div>
 
-    <div class="popup focus choose hide">
-      <button class="close" onclick="closePopup(this, true)"><img src="Close.svg"/></button>
-      <h2>Write your own word:</h2>
+    <div role="dialog" aria-labelledby="dialog2_label" aria-modal="true" class="popup choose hide">
+      <button type="button" class="close" onclick="closePopup(this, true)"><img src="Close.svg" alt="Close button"></button>
+      <h2 id="dialog2_label">Write your own word:</h2>
       <div class="type-area">
         <input type="text" id="choose-word">
       </div>
       <p id="letters-only">Needs to be only letters!</p>
-      <button class="use lower-opacity" onclick="closePopup(this, true, true, true)">Use word</button>
-      <button onclick="closePopup(this, true, true, false)">Random word</button>
+      <button type="button" aria-disabled="true" class="use" onclick="closePopup(this, true, true, true)">Use word</button>
+      <button type="button" onclick="closePopup(this, true, true, false)">Random word</button>
     </div>
 
     <main>
@@ -62,9 +62,9 @@
         <div class="type-area">
           <input type="text" id="input">
           <div class="word-check">
-            <img class="not" src="NotWord.svg"/>
-            <div id="reason" class="popup speech"><p>No word entered</p></div>
-            <img class="is" src="IsWord.svg"/>
+            <img class="not" aria-labelledby="reason" src="NotWord.svg" alt="Not a Word">
+            <div  role="tooltip" id="reason" class="popup"><p>No word entered</p></div>
+            <img class="is" src="IsWord.svg" alt="Is a Word">
           </div>
         </div>
       </div>
@@ -74,25 +74,25 @@
         </div>
         <div class="buttons">
           <div class="undo">
-            <button onclick="undo()"><img src= "Undo.svg"/></button>
-            <p class="popup speech">Undo</p>
+            <button type="button" aria-labelledby="tooltop1" onclick="undo()"><img src= "Undo.svg" alt="Undo button"></button>
+            <p id="tooltop1" role="tooltip" class="popup">Undo</p>
           </div>
           <div class="reset">
-            <button onclick="reset()"><img src= "Reset.svg"/></button>
-            <p class="popup speech">Restart</p>
+            <button type="button" aria-labelledby="tooltop2" onclick="reset()"><img src= "Reset.svg" alt="Reset button"></button>
+            <p id="tooltop2" role="tooltip" class="popup">Restart</p>
           </div>
           <div class="randomize">
-            <button onclick="randomize(true)"><img src= "Random.svg"/></button>
-            <p class="popup speech">New word</p>
+            <button type="button" aria-labelledby="tooltop3" onclick="randomize(true)"><img src= "Random.svg" alt="Randomize button"></button>
+            <p id="tooltop3" role="tooltip" class="popup">New word</p>
           </div>
           <div class="custom">
-            <button onclick="custom()"><img src= "Custom.svg"/></button>
-            <p class="popup speech">Choose new word</p>
+            <button type="button" aria-labelledby="tooltop4" aria-haspopup="dialog" onclick="custom()"><img src= "Custom.svg" alt="Choose custom word button"></button>
+            <p id="tooltop4" role="tooltip" class="popup">Choose new word</p>
           </div>
           <div class="alphabetize">
             <p class="label">A - Z</p>
-            <button class="switch" onclick="alphabetize(this)"></button>
-            <p class="popup speech">Alphabetize<br>remaining<br>letters</p>
+            <button type="button" aria-labelledby="tooltop5" role="switch" aria-checked="false" onclick="alphabetize(this)"></button>
+            <p id="tooltop5" role="tooltip" class="popup">Alphabetize<br>remaining<br>letters</p>
           </div>
         </div>
       </div>

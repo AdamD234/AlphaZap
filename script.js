@@ -361,14 +361,14 @@ chooseInput.onkeydown = (e) => {
     //graphics
     if (acceptCustom){
         document.getElementById("letters-only").classList.remove("show")
-        document.querySelector(".use").classList.remove("lower-opacity")
+        document.querySelector(".use").setAttribute('aria-disabled', false);
     } else {
       if (possibleCustom.length > 0){
         document.getElementById("letters-only").classList.add("show")
       } else {
         document.getElementById("letters-only").classList.remove("show")
       }
-      document.querySelector(".use").classList.add("lower-opacity")
+      document.querySelector(".use").setAttribute('aria-disabled', true);
     } 
   }, delay);
 };
@@ -377,14 +377,13 @@ chooseInput.onkeydown = (e) => {
 alphabetize = (e) =>{
   buttonPress(true);
   alphaOrder = !alphaOrder;
+  e.setAttribute('aria-checked', alphaOrder);
   letters.innerHTML = "";
   if (alphaOrder){
     sorted = JSON.parse(JSON.stringify(currentLetters)).sort(
         (a, b) => (a.letter > b.letter) ? 1 : (a.letter < b.letter) ? -1 : 0);
-    e.classList.add("on")
     orderedInsert();
   } else {
-    e.classList.remove("on")
     //resets all letters to unordered
     for (let i = 0; i < currentLetters.length; i++) {
       letters.insertAdjacentHTML(
@@ -429,11 +428,11 @@ orderedInsert = () =>{
 //changes the reason for check
 changeReason = () => {
   let reasons = [{"words":"No word entered",
-                  "width":"68.78px"},
+                  "width":"137.474px"},
                   {"words":"Not a valid word",
-                  "width":"66.955px"},
+                  "width":"133.906px"},
                   {"words":"Word already used",
-                  "width":"76.595px"}]
+                  "width":"153.188px"}]
   let el = document.getElementById("reason")
   if (reason === false){
     el.classList.add("disappear");
