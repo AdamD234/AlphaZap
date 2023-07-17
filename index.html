@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <title>AlphaZap</title>
+</head>
+  <body>
+    <p class="version">V1.11</p>
+
+    <div class="intro popup focus">
+      <div class="top"> 
+        <h2>AlphaZap</h2>
+        <span class="close" onclick="closePopup(this)"><img src="Close.svg"/></span>
+      </div>
+      <div class="content">
+        <h3>The rules:</h3>
+        <ul>
+          <li>A random word is selected as the challenge word.</li>
+          <li>When there's a pair of the same letter they get zapped.</li>
+          <li>Add your own words to the challenge word.</li>
+          <li>Zap all the letters to win.</li>
+          <li>Once you've zapped one challenge word, another one is selected or you can choose your own.</li>
+        </ul>
+        <h3>Features:</h3>
+        <ul>
+          <li>Undo your last turn.</li>
+          <li>Restart with the current words.</li>
+          <li>Restart with a different word.</li>
+          <li>Choose your own starting word (letters only, no spaces).</li>
+          <li>Alphabetize the current list of letters.</li>
+        </ul>
+      </div>
+      
+    </div>
+
+    <div class="popup win hide">
+      <span class="close" onclick="closePopup()"><img src="Close.svg"/></span>
+      <h2>Well done!</h2>
+      <p>You won using 1 word!</p>
+    </div>
+
+    <div class="popup focus choose hide">
+      <span class="close" onclick="closePopup(this, true)"><img src="Close.svg"/></span>
+      <h2>Write your own word:</h2>
+      <div class="type-area">
+        <input type="text" id="choose-word">
+      </div>
+      <p id="letters-only">Needs to be only letters!</p>
+      <span class="use lower-opacity" onclick="closePopup(this, true, true, true)">Use word</span>
+      <span onclick="closePopup(this, true, true)">Random word</span>
+    </div>
+
+
+    <div class="left">
+      <div class="previous">
+      </div>
+      <div class="type-area">
+        <input type="text" id="input">
+        <div class="word-check">
+          <img class="not" src="NotWord.svg"/>
+          <div id="reason" class="popup speech"><p>No word entered</p></div>
+          <img class="is" src="IsWord.svg"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="letters-left">
+      </div>
+      <div class="buttons">
+        <div class="undo">
+          <span onclick="undo()"><img src= "Undo.svg"/></span>
+          <div class="popup speech"><p>Undo</p></div>
+        </div>
+        <div class="reset">
+          <span onclick="reset()"><img src= "Reset.svg"/></span>
+          <div class="popup speech"><p>Restart</p></div>
+        </div>
+        <div class="randomize">
+          <span onclick="randomize(true)"><img src= "Random.svg"/></span>
+          <div class="popup speech"><p>New word</p></div>
+        </div>
+        <div class="custom">
+          <span onclick="custom()"><img src= "Custom.svg"/></span>
+          <div class="popup speech"><p>Choose new word</p></div>
+        </div>
+        <div class="alphabetize">
+          <p>A - Z</p>
+          <span class="switch" onclick="alphabetize(this)"></span>
+          <div class="popup speech"><p>Alphabetize<br>remaining<br>letters</p></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
