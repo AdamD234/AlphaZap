@@ -153,7 +153,7 @@ logic = () => {
   let newWordHTML = "<div>"
 
   //creates the new elements
-  for (let i = 0; i < check.length; i++) {
+  for (i in check) {
     if (check[i] != " "){
       numOfLetters++;
       currentWord.push(check[i]);
@@ -190,9 +190,9 @@ logic = () => {
   }
   
   //checks for duplicates
-  for (let i = 0; i < currentLetters.length; i++) {
+  for (i in currentLetters) {
     let first = currentLetters[i]["letter"];
-    for (let j = 0; j < currentLetters.length; j++) {
+    for (j in currentLetters) {
       let second = currentLetters[j]["letter"];
       if (i != j && first == second) {
         currentLetters[j]["letter"] = "null";
@@ -203,7 +203,7 @@ logic = () => {
   }
   //removes the duplicates
   removed = [];
-  for (let i = 0; i < currentLetters.length; i++) {
+  for (i in currentLetters) {
     nullremover(i);
   }
   //records previous turns
@@ -303,15 +303,14 @@ undo = () => {
       currentLetters = undoArray[undoArray.length - 1][2];
 
       //removes graphical classes
-      for (let i = 0; i < gone.length; i++) {
-        let id = gone[i];
+      gone.forEach((id) => {
         let left = document.getElementById(id);
         let right = document.getElementById("r" + id);
         left.classList.remove("gone");
         right.classList.remove("fade");
         right.firstElementChild.classList.remove("disappear");
         right.classList.remove("disappear");
-      }
+      });
 
       //removes HTML
       previous.lastElementChild.remove();
@@ -396,18 +395,14 @@ alphabetize = (e) =>{
     orderedInsert();
   } else {
     //resets all letters to unordered
-    for (let i = 0; i < currentLetters.length; i++) {
-      letters.insertAdjacentHTML(
-      "beforeend",
-      "<div class='cards' id='r" +
-        currentLetters[i]["pos"] +
-        "'><p>" +
-        currentLetters[i]["letter"] +
-        "</p></div>"
-      );
+    currentLetters.forEach((cardLetter) => {
+        letters.insertAdjacentHTML(
+          "beforeend",
+          "<div class='cards' id='r" + cardLetter["pos"] +"'><p>" + cardLetter["letter"] + "</p></div>"
+        );
+      })
     }
-  }
-};
+  };
 
 buttonPress = (keepInput) =>{
   //removes the typed word when some buttons are pressed
@@ -424,17 +419,13 @@ buttonPress = (keepInput) =>{
 
 //inserts the cards alphabetically
 orderedInsert = () =>{
-  for (let i = 0; i < sorted.length; i++) {
+  sorted.forEach((cardLetter) => {
     letters.insertAdjacentHTML(
-    "beforeend",
-    "<div class='cards' id='r" +
-      sorted[i]["pos"] +
-      "'><p>" +
-      sorted[i]["letter"] +
-      "</p></div>"
+      "beforeend",
+      "<div class='cards' id='r" + cardLetter["pos"] +"'><p>" + cardLetter["letter"] + "</p></div>"
     );
-  }
-}
+  })
+};
 
 //changes the reason for valid check
 changeReason = () => {

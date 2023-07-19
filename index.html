@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="POG.ico">
+    <link rel="shortcut icon" href="Icon.ico">
     <title>AlphaZap</title>
 </head>
   <body>
-    <p aria-hidden="true" class="version">V1.14</p>
+    <p aria-hidden="true" class="version">V1.15</p>
 
-    <div role="dialog" aria-labelledby="dialog1_label" aria-modal="true" class="intro popup">
+    <div role="dialog" aria-modal="true" class="intro popup">
       <div class="top"> 
-        <h2 id="dialog1_label">AlphaZap</h2>
+        <img class="logo" src="Logo.svg" alt="AlphaZap logo">
         <button type="button" class="close" onclick="closePopup(this)"><img src="Close.svg" alt="Close button"></button>
       </div>
       <div class="content">
@@ -44,9 +44,9 @@
       <p>You won using 1 word!</p>
     </div>
 
-    <div role="dialog" aria-labelledby="dialog2_label" aria-modal="true" class="popup choose hide">
+    <div role="dialog" aria-modal="true" class="popup choose hide">
       <button type="button" class="close" onclick="closePopup(this, true)"><img src="Close.svg" alt="Close button"></button>
-      <h2 id="dialog2_label">Write your own word:</h2>
+      <h2>Write your own word:</h2>
       <div class="type-area">
         <input type="text" id="choose-word">
       </div>
