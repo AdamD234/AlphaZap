@@ -38,6 +38,7 @@ closePopup = (child, notFirst, changeWord, customWord) => {
       let isMobileDevice = regexp.test(details);
       if (isMobileDevice) {
         delay = 100;
+        autoFocus = false;
       }
       
       //loads allowed words and starts game
@@ -78,6 +79,7 @@ let interact = false;
 let alphaOrder = false;
 let chooseClosing = false;
 let acceptCustom = false;
+let autoFocus = true;
 let previousWords = [];
 let currentLetters = [];
 let sorted = [];
@@ -103,10 +105,12 @@ input.onkeydown = (e) => {
   if (interact){
     wordCheck.classList.remove("valid");
     //if enter is pressed and it's valid, use the word
-    if (e.keyCode == 13) {
+    if (e.keyCode == 13 || e.keyCode == 32) {
       if (valid) {
         check = input.value.toUpperCase();
-        input.value = "";
+        setTimeout(function () {
+          input.value = "";
+        }, delay);
         logic();
       }
     } else {
@@ -270,7 +274,6 @@ graphics = (num, pos) =>{
 
 //resets variables and html then reruns the first step
 reset = (fromRandom) => {
-  buttonPress();
   if (interact || fromRandom){
     check = firstWord;
     numOfWords = 0;
@@ -286,6 +289,7 @@ reset = (fromRandom) => {
 
     logic();
   }
+  buttonPress();
 };
 
 //undoes turns
@@ -413,8 +417,10 @@ buttonPress = (keepInput) =>{
     let wordCheck = document.querySelector(".word-check");
     wordCheck.classList.remove("valid");
   }
-  //adds focus to the input after button is pressed
-  input.focus();
+  //adds focus to the input after button is pressed for non mobiles
+  if (autoFocus) {
+    input.focus();
+  }
 };
 
 //inserts the cards alphabetically
