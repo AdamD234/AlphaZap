@@ -92,8 +92,8 @@ h2 {
 
 .content {
   overflow-y: auto;
-  margin-right: -1.5rem;
-  padding-right: 1.5rem;
+  margin-right: -1rem;
+  padding-right: 1rem;
 }
 
 h3 {
@@ -519,11 +519,14 @@ button[role="switch"][aria-checked="true"]::before{
   body{ 
     padding: 8%;
   }
+
   main {
     flex-flow: column-reverse;
     gap: 0;
   }
+
   .intro{
+    padding: 1em;
     inset: 10vh 10vw;
     font-size: max(4vw, .75rem);
     border-radius: 1.5em;

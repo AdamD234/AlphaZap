@@ -10,7 +10,7 @@
     <title>AlphaZap</title>
 </head>
   <body>
-    <p aria-hidden="true" class="version">V1.16</p>
+    <p aria-hidden="true" class="version">V1.17</p>
 
     <div role="dialog" aria-modal="true" class="intro popup">
       <div class="top"> 
@@ -48,7 +48,7 @@
       <button type="button" class="close" onclick="closePopup(this, true)"><img src="Close.svg" alt="Close button"></button>
       <h2>Write your own word:</h2>
       <div class="type-area">
-        <input type="text" id="choose-word">
+        <input autocomplete="off" type="text" id="choose-word">
       </div>
       <p id="letters-only">Needs to be only letters!</p>
       <button type="button" aria-disabled="true" class="use" onclick="closePopup(this, true, true, true)">Use word</button>
@@ -60,7 +60,7 @@
         <div class="previous">
         </div>
         <div class="type-area">
-          <input type="text" id="input">
+          <input autocomplete="off" type="text" id="input">
           <div class="word-check">
             <img class="not" aria-labelledby="reason" src="NotWord.svg" alt="Not a Word">
             <div  role="tooltip" id="reason" class="popup"><p>No word entered</p></div>
