@@ -6,6 +6,7 @@ let letters = document.querySelector(".letters-left");
 let win = document.querySelector(".win");
 let choose = document.querySelector(".choose");
 let chooseInput = document.getElementById("choose-word");
+let definitionBox = document.querySelector(".define");
 
 //turns off input to start with
 input.disabled = true;
@@ -70,11 +71,13 @@ closePopup = (child, notFirst, changeWord, customWord) => {
 let check;
 let valid;
 let firstWord;
+let currentDefinition;
 let numOfWords = 0;
 let numberOfUndos = 0;
 let delay = 0;
 let reason = 0;
 let complete = 0;
+let inside = false;
 let interact = false;
 let alphaOrder = false;
 let chooseClosing = false;
@@ -90,7 +93,7 @@ let words;
 //gets the list of words
 async function fetchWords() {
   try {
-    const response = await fetch('./eng_words.json');
+    const response = await fetch('./WordsWithMeanings142.json');
     words = await response.json();
 
     //starts the game
@@ -154,7 +157,7 @@ logic = () => {
   let numOfLetters = 0;
   numOfWords++;
   let pastLetters = JSON.parse(JSON.stringify(currentLetters));
-  let newWordHTML = "<div>"
+  let newWordHTML = "<div onmouseover=defineWord('" + check.toLowerCase() + "',this) onmouseleave=hideDefinition()>"
 
   //creates the new elements
   for (i in check) {
@@ -450,4 +453,52 @@ changeReason = () => {
     el.style.setProperty("--textWidth",set["width"]);
     el.firstElementChild.innerHTML = set["words"];
   }
+}
+
+
+//free dictionary API fetches definition of word is shown
+defineWord = (define,el) => {
+  inside = true;
+  if (define != currentDefinition){
+    
+    const apiUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(define)}`;
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        let definition;
+        if (data.title == "No Definitions Found"){
+          definition = "Cannot find definition"
+        } else {
+          definition = data[0].meanings[0].definitions[0].definition
+        }
+        currentDefinition = define;
+        definitionBox.innerHTML = definition;
+        definitionBox.href = data[0].sourceUrls[0];
+        showDefinition(el);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  } else {
+    showDefinition(el);
+  }
+}
+
+showDefinition = (el) =>{
+  definitionBox.classList.remove("hide");
+  definitionBox.style.top = el.offsetTop - definitionBox.offsetHeight - 515 + "px";
+  if (inside){
+    definitionBox.classList.add("show-definition");
+  }
+  definitionBox.style.setProperty('--left', (el.offsetWidth / 2) + "px");
+}
+
+hideDefinition = () =>{
+  inside = false;
+  definitionBox.classList.remove("show-definition");
+  setTimeout(function () {
+    if (!inside){
+      definitionBox.classList.add("hide");
+    }
+  }, 700);
 }

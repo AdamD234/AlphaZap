@@ -10,7 +10,7 @@
     <title>AlphaZap</title>
 </head>
   <body>
-    <p aria-hidden="true" class="version">V1.17</p>
+    <p aria-hidden="true" class="version">V1.2</p>
 
     <div role="dialog" aria-modal="true" class="intro popup">
       <div class="top"> 
@@ -33,6 +33,8 @@
           <li>Restart with a different word.</li>
           <li>Choose your own starting word (letters only, no spaces).</li>
           <li>Alphabetize the current list of letters.</li>
+          <li>Hover over words to show their definitions.</li>
+          <li>Click word definitions to learn more about the word.</li>
         </ul>
       </div>
       
@@ -61,6 +63,7 @@
         </div>
         <div class="type-area">
           <input spellcheck="false" autocomplete="off" autocorrect="off" type="text" id="input">
+          <a class="define popup hide" href="" target="_blank" role="tooltip" aria-hidden="true">Word definitions</a>
           <div class="word-check">
             <img class="not" aria-labelledby="reason" src="NotWord.svg" alt="Not a Word">
             <div  role="tooltip" id="reason" class="popup"><p>No word entered</p></div>
@@ -74,25 +77,25 @@
         </div>
         <div class="buttons">
           <div class="undo">
-            <button type="button" aria-labelledby="tooltop1" onclick="undo()"><img src= "Undo.svg" alt="Undo button"></button>
-            <p id="tooltop1" role="tooltip" class="popup">Undo</p>
+            <button type="button" aria-labelledby="tooltip1" onclick="undo()"><img src= "Undo.svg" alt="Undo button"></button>
+            <p id="tooltip1" role="tooltip" class="popup">Undo</p>
           </div>
           <div class="reset">
-            <button type="button" aria-labelledby="tooltop2" onclick="reset()"><img src= "Reset.svg" alt="Reset button"></button>
-            <p id="tooltop2" role="tooltip" class="popup">Restart</p>
+            <button type="button" aria-labelledby="tooltip2" onclick="reset()"><img src= "Reset.svg" alt="Reset button"></button>
+            <p id="tooltip2" role="tooltip" class="popup">Restart</p>
           </div>
           <div class="randomize">
-            <button type="button" aria-labelledby="tooltop3" onclick="randomize(true)"><img src= "Random.svg" alt="Randomize button"></button>
-            <p id="tooltop3" role="tooltip" class="popup">New word</p>
+            <button type="button" aria-labelledby="tooltip3" onclick="randomize(true)"><img src= "Random.svg" alt="Randomize button"></button>
+            <p id="tooltip3" role="tooltip" class="popup">New word</p>
           </div>
           <div class="custom">
-            <button type="button" aria-labelledby="tooltop4" aria-haspopup="dialog" onclick="custom()"><img src= "Custom.svg" alt="Choose custom word button"></button>
-            <p id="tooltop4" role="tooltip" class="popup">Choose new word</p>
+            <button type="button" aria-labelledby="tooltip4" aria-haspopup="dialog" onclick="custom()"><img src= "Custom.svg" alt="Choose custom word button"></button>
+            <p id="tooltip4" role="tooltip" class="popup">Choose new word</p>
           </div>
           <div class="alphabetize">
             <p class="label">A - Z</p>
-            <button type="button" aria-labelledby="tooltop5" role="switch" aria-checked="false" onclick="alphabetize(this)"></button>
-            <p id="tooltop5" role="tooltip" class="popup">Alphabetize<br>remaining<br>letters</p>
+            <button type="button" aria-labelledby="tooltip5" role="switch" aria-checked="false" onclick="alphabetize(this)"></button>
+            <p id="tooltip5" role="tooltip" class="popup">Alphabetize<br>remaining<br>letters</p>
           </div>
         </div>
       </div>
